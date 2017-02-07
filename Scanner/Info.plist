@@ -19,18 +19,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLName</key>
-			<string>DropboxSDK</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>db-11d2ngyw0tfort7</string>
-			</array>
-		</dict>
-	</array>
+	<array/>
 	<key>CFBundleVersion</key>
 	<string>0.8</string>
 	<key>LSApplicationQueriesSchemes</key>

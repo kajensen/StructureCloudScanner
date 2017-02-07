@@ -4,7 +4,4 @@
    <FileRef
       location = "group:Scanner.xcodeproj">
    </FileRef>
-   <FileRef
-      location = "group:ThirdParty/SwiftyDropbox/SwiftyDropbox.xcodeproj">
-   </FileRef>
 </Workspace>

@@ -10,7 +10,6 @@
 
 import Foundation
 import UIKit
-import SwiftyDropbox
 
 struct DynamicOptions {
 	var newTrackerIsOn = true
@@ -185,7 +184,6 @@ class ViewController: UIViewController, STBackgroundTaskDelegate, MeshViewDelega
 	@IBOutlet weak var enableHighResolutionColorSwitch: UISwitch!
 	@IBOutlet weak var enableNewMapperSwitch: UISwitch!
 	@IBOutlet weak var enableHighResMappingSwitch: UISwitch!
-	@IBOutlet weak var dropboxButtonLabel: UIButton!
 	@IBOutlet weak var appStatusMessageLabel: UILabel!
 	@IBOutlet weak var scanButton: UIButton!
 	@IBOutlet weak var resetButton: UIButton!
@@ -235,9 +233,6 @@ class ViewController: UIViewController, STBackgroundTaskDelegate, MeshViewDelega
 	var avCaptureSession: AVCaptureSession? = nil
 	var videoDevice: AVCaptureDevice? = nil
 
-	var UNLINKDROPBOX = "Unlink from Dropbox"
-	var LINKTODROPBOX = "Link to Dropbox"
-	
 	deinit {
 		avCaptureSession!.stopRunning()
 		if EAGLContext.current() == _display!.context {
@@ -246,20 +241,9 @@ class ViewController: UIViewController, STBackgroundTaskDelegate, MeshViewDelega
 		unregisterNotificationHandlers()
 	}
 	
-	public func updateDropboxLinkStatus() {
-		if let _ = DropboxClientsManager.authorizedClient {
-			dropboxButtonLabel.setTitle(UNLINKDROPBOX, for: UIControlState.normal)
-		}
-		else {
-			dropboxButtonLabel.setTitle(LINKTODROPBOX, for: UIControlState.normal)
-		}
-	}
-	
 	func unregisterNotificationHandlers() {
 		
 		NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
-
-		NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "DropboxLinkStatusNotification"), object: nil)
 	}
 
 	func registerNotificationHandlers() {
@@ -267,30 +251,6 @@ class ViewController: UIViewController, STBackgroundTaskDelegate, MeshViewDelega
 		// Make sure we get notified when the app becomes active to start/restore the sensor state if necessary.
 		NotificationCenter.default.addObserver(self, selector: #selector(ViewController.appDidBecomeActive), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
 		
-		NotificationCenter.default.addObserver(self, selector: #selector(updateDropboxLinkStatus), name: NSNotification.Name(rawValue: "DropboxLinkStatusNotification"), object: nil)
-	}
-	
-	@available(iOS 10.0, *)
-	func isAuthorizeDropbox() {
-		let client = DropboxClientsManager.authorizedClient
- 
-		if client == nil {
-			
-			DropboxClientsManager.authorizeFromController(UIApplication.shared, controller: self, openURL: { (url: URL) -> Void in
-				UIApplication.shared.open(url)
-			})
-		}
-	}
-	
-	func isAuthorizeDropbox9() {
-		let client = DropboxClientsManager.authorizedClient
-		
-		if client == nil {
-			
-			DropboxClientsManager.authorizeFromController(UIApplication.shared, controller: self, openURL: { (url: URL) -> Void in
-				UIApplication.shared.openURL(url)
-			})
-		}
 	}
 
     override func viewDidLoad() {
@@ -375,7 +335,6 @@ class ViewController: UIViewController, STBackgroundTaskDelegate, MeshViewDelega
 			resetButtonPressed(resetButton)
 		}
 		
-		updateDropboxLinkStatus()
 	}
 
 	override func didReceiveMemoryWarning() {
@@ -612,22 +571,6 @@ class ViewController: UIViewController, STBackgroundTaskDelegate, MeshViewDelega
 			if _slamState.tracker != nil {
 				// The tracker is more robust to fast moves if we feed it with motion data.
 				_slamState.tracker!.updateCameraPose(with: motion)
-			}
-		}
-	}
-
-	@IBAction func unlinkFromDropbox(_ sender: AnyObject) {
-
-		if let _ = DropboxClientsManager.authorizedClient {
-			DropboxClientsManager.unlinkClients()
-			updateDropboxLinkStatus()
-		}
-		else {
-			if #available(iOS 10.0, *) {
-				isAuthorizeDropbox()
-			} else {
-				// Fallback on earlier versions
-				isAuthorizeDropbox9()
 			}
 		}
 	}

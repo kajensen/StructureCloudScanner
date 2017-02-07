@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		45E5FB601E4A615A000E5F6A /* Structure.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45E5FB5F1E4A615A000E5F6A /* Structure.framework */; };
 		BF469BAE1D6C702300EAD58F /* CustomShaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF469BAC1D6C702300EAD58F /* CustomShaders.swift */; };
 		BF4C49B91D6C91C1000A84DD /* EAGLView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4C49B81D6C91C1000A84DD /* EAGLView.swift */; };
 		BF642AA61D7374F50055CBE3 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF642AA41D7374F50055CBE3 /* Main_iPad.storyboard */; };
@@ -26,7 +27,6 @@
 		BF94659D1D6C592E00E1FD98 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF94659A1D6C592E00E1FD98 /* CoreGraphics.framework */; };
 		BF94659E1D6C592E00E1FD98 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF94659B1D6C592E00E1FD98 /* CoreMedia.framework */; };
 		BF94659F1D6C592E00E1FD98 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF94659C1D6C592E00E1FD98 /* CoreMotion.framework */; };
-		BF9465A11D6C5A9600E1FD98 /* Structure.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF9465A01D6C5A9600E1FD98 /* Structure.framework */; };
 		BF9465A41D6C660700E1FD98 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF9465A61D6C660700E1FD98 /* Main_iPhone.storyboard */; };
 		BFB7DC851D6CADFF006AC0BF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB7DC841D6CADFF006AC0BF /* AppDelegate.swift */; };
 		BFB7DC871D6CAF9A006AC0BF /* ViewpointController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB7DC861D6CAF9A006AC0BF /* ViewpointController.swift */; };
@@ -39,10 +39,6 @@
 		BFEC10E01D6CCA4700BC2A3F /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BFEC10DF1D6CCA4700BC2A3F /* libc++.tbd */; };
 		BFFCD7581D74334700BE291B /* ScannerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFFCD7571D74334700BE291B /* ScannerExtensions.swift */; };
 		CE6743B41D9E75AA00EEE8C9 /* UploadNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6743B31D9E75AA00EEE8C9 /* UploadNavigationBar.swift */; };
-		CEC87D2B1D9ED329009E7E3A /* SwiftyDropbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEC87D2A1D9ED329009E7E3A /* SwiftyDropbox.framework */; };
-		CEC87D2C1D9ED329009E7E3A /* SwiftyDropbox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CEC87D2A1D9ED329009E7E3A /* SwiftyDropbox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		CEC87D2E1D9ED329009E7E3A /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEC87D2D1D9ED329009E7E3A /* Alamofire.framework */; };
-		CEC87D2F1D9ED329009E7E3A /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CEC87D2D1D9ED329009E7E3A /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -52,8 +48,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				CEC87D2C1D9ED329009E7E3A /* SwiftyDropbox.framework in Embed Frameworks */,
-				CEC87D2F1D9ED329009E7E3A /* Alamofire.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -61,6 +55,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		45E5FB5F1E4A615A000E5F6A /* Structure.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Structure.framework; sourceTree = "<group>"; };
 		BF469BA91D6C702200EAD58F /* Scanner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Scanner-Bridging-Header.h"; sourceTree = "<group>"; };
 		BF469BAC1D6C702300EAD58F /* CustomShaders.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomShaders.swift; sourceTree = "<group>"; };
 		BF4C49B81D6C91C1000A84DD /* EAGLView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EAGLView.swift; sourceTree = "<group>"; };
@@ -84,7 +79,6 @@
 		BF94659A1D6C592E00E1FD98 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		BF94659B1D6C592E00E1FD98 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		BF94659C1D6C592E00E1FD98 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
-		BF9465A01D6C5A9600E1FD98 /* Structure.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Structure.framework; path = Scanner/Structure.framework; sourceTree = "<group>"; };
 		BF9465A51D6C660700E1FD98 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
 		BFB7DC841D6CADFF006AC0BF /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BFB7DC861D6CAF9A006AC0BF /* ViewpointController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewpointController.swift; sourceTree = "<group>"; };
@@ -96,10 +90,7 @@
 		BFEC10DA1D6CC8B500BC2A3F /* ViewController+SLAM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ViewController+SLAM.swift"; sourceTree = "<group>"; };
 		BFEC10DF1D6CCA4700BC2A3F /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		BFFCD7571D74334700BE291B /* ScannerExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScannerExtensions.swift; sourceTree = "<group>"; };
-		CE0DF8DB1D9E337F008EF311 /* SwiftyDropbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyDropbox.framework; path = Scanner/SwiftyDropbox.framework; sourceTree = "<group>"; };
 		CE6743B31D9E75AA00EEE8C9 /* UploadNavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadNavigationBar.swift; sourceTree = "<group>"; };
-		CEC87D2A1D9ED329009E7E3A /* SwiftyDropbox.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwiftyDropbox.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CEC87D2D1D9ED329009E7E3A /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,14 +98,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45E5FB601E4A615A000E5F6A /* Structure.framework in Frameworks */,
 				BFEC10E01D6CCA4700BC2A3F /* libc++.tbd in Frameworks */,
-				CEC87D2E1D9ED329009E7E3A /* Alamofire.framework in Frameworks */,
-				BF9465A11D6C5A9600E1FD98 /* Structure.framework in Frameworks */,
 				BF94659D1D6C592E00E1FD98 /* CoreGraphics.framework in Frameworks */,
 				BF94659E1D6C592E00E1FD98 /* CoreMedia.framework in Frameworks */,
 				BF94659F1D6C592E00E1FD98 /* CoreMotion.framework in Frameworks */,
 				BF9465901D6C58EC00E1FD98 /* Accelerate.framework in Frameworks */,
-				CEC87D2B1D9ED329009E7E3A /* SwiftyDropbox.framework in Frameworks */,
 				BF9465911D6C58EC00E1FD98 /* AVFoundation.framework in Frameworks */,
 				BF9465921D6C58EC00E1FD98 /* CoreImage.framework in Frameworks */,
 				BF9465931D6C58EC00E1FD98 /* GLKit.framework in Frameworks */,
@@ -134,8 +123,6 @@
 		BF9465161D6C539200E1FD98 = {
 			isa = PBXGroup;
 			children = (
-				CEC87D2D1D9ED329009E7E3A /* Alamofire.framework */,
-				CEC87D2A1D9ED329009E7E3A /* SwiftyDropbox.framework */,
 				BF9465211D6C539300E1FD98 /* Scanner */,
 				BF9465821D6C551700E1FD98 /* Frameworks */,
 				BF9465201D6C539200E1FD98 /* Products */,
@@ -187,9 +174,8 @@
 		BF9465821D6C551700E1FD98 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				CE0DF8DB1D9E337F008EF311 /* SwiftyDropbox.framework */,
+				45E5FB5F1E4A615A000E5F6A /* Structure.framework */,
 				BFEC10DF1D6CCA4700BC2A3F /* libc++.tbd */,
-				BF9465A01D6C5A9600E1FD98 /* Structure.framework */,
 				BF94659A1D6C592E00E1FD98 /* CoreGraphics.framework */,
 				BF94659B1D6C592E00E1FD98 /* CoreMedia.framework */,
 				BF94659C1D6C592E00E1FD98 /* CoreMotion.framework */,
@@ -240,7 +226,7 @@
 				TargetAttributes = {
 					BF94651E1D6C539200E1FD98 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = VBXKNBD386;
+						DevelopmentTeam = JSQ8N76B4C;
 						LastSwiftMigration = 0800;
 						SystemCapabilities = {
 							com.apple.Keychain = {
@@ -435,9 +421,11 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Scanner/Scanner.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = JSQ8N76B4C;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Scanner",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
@@ -448,7 +436,7 @@
 				INFOPLIST_FILE = Scanner/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.stashdump.Scanner;
+				PRODUCT_BUNDLE_IDENTIFIER = io.arborapps.Scanner;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Scanner/Scanner-Bridging-Header.h";
@@ -466,9 +454,11 @@
 				CODE_SIGN_ENTITLEMENTS = Scanner/Scanner.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				DEVELOPMENT_TEAM = JSQ8N76B4C;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Scanner",
+					"$(PROJECT_DIR)",
 				);
 				GCC_OPTIMIZATION_LEVEL = fast;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
@@ -477,7 +467,7 @@
 				INFOPLIST_FILE = Scanner/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.stashdump.Scanner;
+				PRODUCT_BUNDLE_IDENTIFIER = io.arborapps.Scanner;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Scanner/Scanner-Bridging-Header.h";

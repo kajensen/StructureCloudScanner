@@ -10,7 +10,6 @@
 
 import MessageUI
 import ImageIO
-import SwiftyDropbox
 
 protocol MeshViewDelegate: class {
     
@@ -78,7 +77,6 @@ open class MeshViewController: UIViewController, UIGestureRecognizerDelegate, MF
 	@IBOutlet weak var displayControl: UISegmentedControl!
 	@IBOutlet weak var navigationTitle: UINavigationItem!
 	@IBOutlet weak var navigationBar: UploadNavigationBar!
-	@IBOutlet weak var dropboxButton: UIBarButtonItem!
 	@IBOutlet weak var meshViewerMessageLabel: UILabel!
 	
     var displayLink: CADisplayLink?
@@ -127,15 +125,7 @@ open class MeshViewController: UIViewController, UIGestureRecognizerDelegate, MF
         if !colorEnabled {
             displayControl.removeSegment(at: 2, animated: false)
         }
-		
-		if let _ = DropboxClientsManager.authorizedClient  {
-			
-			dropboxButton.isEnabled = true
-		}
-		else {
-			// disable button if dropbox is not authorized
-			dropboxButton.isEnabled = false
-		}
+
     }
 	
 	// Make sure the status bar is disabled (iOS 7+)
@@ -463,89 +453,8 @@ open class MeshViewController: UIViewController, UIGestureRecognizerDelegate, MF
 		navigationTitle.title = "Structure Sensor Scanner"
 	}
 	
-	var request0: UploadRequest<Files.FileMetadataSerializer, Files.UploadErrorSerializer>? = nil
-	var request1: UploadRequest<Files.FileMetadataSerializer, Files.UploadErrorSerializer>? = nil
 	var resetTitleTimer: Timer? = nil
 	
-	@IBAction func uploadDropBox(sender: AnyObject) {
-		
-		// Setup paths and filenames.
-		
-		if request0 != nil || request1 != nil {
-			print("upload in progress")
-			return
-		}
-		
-		let zipFilename = "Model.zip"
-		let screenshotFilename = "Preview.jpg"
-		
-		let fullPathFilename = FileMgr.sharedInstance.full(screenshotFilename)
-  
-		FileMgr.sharedInstance.del(screenshotFilename)
-		
-		// Take a screenshot and save it to disk.
-		
-		if let dropboxClient = DropboxClientsManager.authorizedClient {
-			
-			prepareScreenShotCurrentViewpoint(screenshotPath: fullPathFilename)
-			
-			navigationTitle.title = "Uploading to Dropbox..."
-
-			navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.init(red: 0.275, green: 0.64, blue: 1, alpha: 1)]
-			
-			resetTitleTimer = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(MeshViewController.resetTitle), userInfo: nil, repeats: false)
-			
-			if let sshot = NSData(contentsOfFile: fullPathFilename) {
-				let screenshotFilename = "Preview.jpg"
-				let pathname = "/" + screenshotFilename
-				
-				let data = sshot as Data
-
-				navigationBar.progress0 = 0
-				
-				request0 = dropboxClient.files.upload(path: pathname, mode: Files.WriteMode.add, autorename: true, clientModified: nil, mute: false, input: data).response { response, error in
-					if let response = response {
-						print(response)
-					} else if let error = error {
-						print(error)
-					}
-				}
-				.progress { progressData in
-					print(progressData)
-					self.navigationBar.progress0 = Float(progressData.fractionCompleted)
-					if progressData.fractionCompleted > 0.95 {
-						self.request0 = nil
-					}
-				}
-			}
-			
-			
-			if let meshToSend = mesh {
-				let zipfile = FileMgr.sharedInstance.saveMesh(zipFilename, data: meshToSend)
-				
-				if zipfile != nil {
-					
-					let pathname = "/" + zipFilename
-
-					request1 = dropboxClient.files.upload(path: pathname, mode: Files.WriteMode.add, autorename: true, clientModified: nil, mute: false, input: zipfile!).response { response, error in
-						if let response = response {
-							print(response)
-						} else if let error = error {
-							print(error)
-						}
-						}
-						.progress { progressData in
-							print(progressData)
-							self.navigationBar.progress1 = Float(progressData.fractionCompleted)
-							if progressData.fractionCompleted > 0.95 {
-								self.request1 = nil
-						}
-					}
-				}
-			}
-		}
-	}
-
 	@IBAction func emailMesh(_ sender: AnyObject) {
         
 		mailViewController = MFMailComposeViewController.init()
@@ -670,33 +579,6 @@ open class MeshViewController: UIViewController, UIGestureRecognizerDelegate, MF
 	
 	@IBAction func tapStopGesture(_ sender: UITapGestureRecognizer) {
 
-		if sender.state == .ended {
-			// stop upload
-			print("cancel upload")
-			
-			if request0 != nil {
-				request0?.cancel()
-				request0 = nil
-				request1 = nil
-			}
-			
-			if request1 != nil {
-				request1?.cancel()
-				request1 = nil
-				request0 = nil
-			}
-			
-			if resetTitleTimer != nil {
-				resetTitleTimer?.invalidate()
-			}
-
-			navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.red]
-			navigationTitle.title = "Upload canceled!!!"
-			Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(MeshViewController.resetTitle), userInfo: nil, repeats: false)
-			
-			navigationBar.progress0 = 1.0
-			navigationBar.progress1 = 1.0
-		}
 	}
 
     @IBAction func tapGesture(_ sender: UITapGestureRecognizer) {

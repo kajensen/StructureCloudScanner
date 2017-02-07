@@ -7,7 +7,6 @@
 //
 //  Ported by Christopher Worley on 8/20/16.
 //
-import SwiftyDropbox
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -57,8 +56,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 NSLog("Oh no! Can't start wireless log: %@", errmsg)
             }
         }
-
-		DropboxClientsManager.setupWithAppKey("11d2ngyw0tfort7")
 		
         return true
     }
@@ -84,40 +81,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-	
-	// iOS 10 Uses this callback
-	func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-		
-		if let authResult = DropboxClientsManager.handleRedirectURL(url) {
-			switch authResult {
-			case .success:
-				print("Success! User is logged into Dropbox.")
-			case .cancel:
-				print("Authorization flow was manually canceled by user!")
-			case .error(_, let description):
-				print("Error: \(description)")
-			}
-			NotificationCenter.default.post(name: NSNotification.Name(rawValue: "DropboxLinkStatusNotification"), object: nil)
-		}
-		return true
-	}
-	
-	// iOS 9 Uses this callback
-	func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
-		
-		if let authResult = DropboxClientsManager.handleRedirectURL(url as URL) {
-			switch authResult {
-			case .success:
-				print("Success! User is logged into Dropbox.")
-			case .cancel:
-				print("Authorization flow was manually canceled by user!")
-			case .error(_, let description):
-				print("Error: \(description)")
-			}
-			NotificationCenter.default.post(name: NSNotification.Name(rawValue: "DropboxLinkStatusNotification"), object: nil)
-		}
-		return true
-	}
 
 }
 
