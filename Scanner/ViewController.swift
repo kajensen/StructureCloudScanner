@@ -385,11 +385,7 @@ class ViewController: UIViewController, STBackgroundTaskDelegate, MeshViewDelega
 
 	func setupMeshViewController() {
 		// The mesh viewer will be used after scanning.
-		if UIDevice.current.userInterfaceIdiom == .phone {
-			meshViewController = UIStoryboard(name: "Main_iPhone", bundle: nil).instantiateViewController(withIdentifier: "MeshViewController") as! MeshViewController
-		} else {
-			meshViewController = UIStoryboard(name: "Main_iPad", bundle: nil).instantiateViewController(withIdentifier: "MeshViewController") as! MeshViewController
-		}
+        meshViewController = storyboard?.instantiateViewController(withIdentifier: "MeshViewController") as! MeshViewController
 	}
 
 	func presentMeshViewer(_ mesh: STMesh) {
@@ -428,7 +424,9 @@ class ViewController: UIViewController, STBackgroundTaskDelegate, MeshViewDelega
 
 		meshViewController.resetMeshCenter(volumeCenter)
         meshViewController.delegate = self
-		present(meshViewController!, animated: true, completion: nil)
+        
+        let nc = UINavigationController(rootViewController: meshViewController)
+		present(nc, animated: true, completion: nil)
 	}
 
 	func enterCubePlacementState() {
