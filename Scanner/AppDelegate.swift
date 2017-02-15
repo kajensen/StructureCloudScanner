@@ -12,7 +12,7 @@
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var STdebugger: Bool = false
+    var STdebugger = true
     
     func preventApplicationFromStartingInTheBackgroundWhenTheStructureSensorIsPlugged() {
         // Sadly, iOS 9.2+ introduced unexpected behavior: every time a Structure Sensor is plugged in to iOS, iOS will launch all Structure-related apps in the background.
@@ -41,16 +41,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         preventApplicationFromStartingInTheBackgroundWhenTheStructureSensorIsPlugged()
 		
 
-        if (STdebugger)
-        {
+        if (STdebugger) {
             // STWirelessLog is very helpful for debugging while your Structure Sensor is plugged in.
             // See SDK documentation for how to start a listener on your computer.
-            
             var error: NSError? = nil
-			let remoteLogHost = "192.168.1.1"
-            
+			let remoteLogHost = "10.0.0.180"
             STWirelessLog.broadcastLogsToWirelessConsole(atAddress: remoteLogHost, usingPort: 49999, error: &error)
-            
             if error != nil {
                 let errmsg = error!.localizedDescription
                 NSLog("Oh no! Can't start wireless log: %@", errmsg)

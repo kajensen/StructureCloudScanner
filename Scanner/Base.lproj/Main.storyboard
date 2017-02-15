@@ -4,6 +4,7 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -15,10 +16,10 @@
         </array>
     </customFonts>
     <scenes>
-        <!--View Controller-->
+        <!--Scan View Controller-->
         <scene sceneID="TZ9-Co-awr">
             <objects>
-                <viewController storyboardIdentifier="ViewController" id="EY6-Gh-pco" customClass="ViewController" customModule="Scanner" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ScanViewController" id="EY6-Gh-pco" customClass="ScanViewController" customModule="Scanner" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="tBM-K1-0Ax"/>
                         <viewControllerLayoutGuide type="bottom" id="oUe-Y0-6OH"/>
@@ -454,7 +455,7 @@ Try to re-align or press reset.</string>
                             </connections>
                         </barButtonItem>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" id="b5C-VH-IBd">
-                            <rect key="frame" x="312" y="8" width="400" height="29"/>
+                            <rect key="frame" x="312" y="7.5" width="400" height="29"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
                                 <segment title="X-Ray View"/>
