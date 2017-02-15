@@ -7,13 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		45A970FF1E551309000B9936 /* Scanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A970FE1E551309000B9936 /* Scanner.swift */; };
+		45A971471E55168D000B9936 /* Scanner.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45A9713A1E55168D000B9936 /* Scanner.storyboard */; };
+		45A971481E55168D000B9936 /* CustomShaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A9713C1E55168D000B9936 /* CustomShaders.swift */; };
+		45A971491E55168D000B9936 /* EAGLView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A9713D1E55168D000B9936 /* EAGLView.swift */; };
+		45A9714A1E55168D000B9936 /* MeshRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A9713E1E55168D000B9936 /* MeshRenderer.swift */; };
+		45A9714B1E55168D000B9936 /* MeshViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A9713F1E55168D000B9936 /* MeshViewController.swift */; };
+		45A9714C1E55168D000B9936 /* Scan+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A971401E55168D000B9936 /* Scan+Util.swift */; };
+		45A9714D1E55168D000B9936 /* Scanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A971411E55168D000B9936 /* Scanner.swift */; };
+		45A9714E1E55168D000B9936 /* ScanViewController+Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A971421E55168D000B9936 /* ScanViewController+Camera.swift */; };
+		45A9714F1E55168D000B9936 /* ScanViewController+OpenGL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A971431E55168D000B9936 /* ScanViewController+OpenGL.swift */; };
+		45A971501E55168D000B9936 /* ScanViewController+SLAM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A971441E55168D000B9936 /* ScanViewController+SLAM.swift */; };
+		45A971511E55168D000B9936 /* ScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A971451E55168D000B9936 /* ScanViewController.swift */; };
+		45A971521E55168D000B9936 /* ViewpointController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A971461E55168D000B9936 /* ViewpointController.swift */; };
+		45A971541E551698000B9936 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45A971531E551698000B9936 /* LaunchScreen.storyboard */; };
 		45E5FB601E4A615A000E5F6A /* Structure.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45E5FB5F1E4A615A000E5F6A /* Structure.framework */; };
-		BF469BAE1D6C702300EAD58F /* CustomShaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF469BAC1D6C702300EAD58F /* CustomShaders.swift */; };
-		BF4C49B91D6C91C1000A84DD /* EAGLView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4C49B81D6C91C1000A84DD /* EAGLView.swift */; };
-		BF642AA61D7374F50055CBE3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF642AA41D7374F50055CBE3 /* Main.storyboard */; };
 		BF94652F1D6C539300E1FD98 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF94652E1D6C539300E1FD98 /* Assets.xcassets */; };
-		BF9465321D6C539300E1FD98 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF9465301D6C539300E1FD98 /* LaunchScreen.storyboard */; };
 		BF9465841D6C562E00E1FD98 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF9465831D6C562E00E1FD98 /* ExternalAccessory.framework */; };
 		BF9465901D6C58EC00E1FD98 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF9465861D6C58EC00E1FD98 /* Accelerate.framework */; };
 		BF9465911D6C58EC00E1FD98 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF9465871D6C58EC00E1FD98 /* AVFoundation.framework */; };
@@ -29,15 +37,7 @@
 		BF94659E1D6C592E00E1FD98 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF94659B1D6C592E00E1FD98 /* CoreMedia.framework */; };
 		BF94659F1D6C592E00E1FD98 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF94659C1D6C592E00E1FD98 /* CoreMotion.framework */; };
 		BFB7DC851D6CADFF006AC0BF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB7DC841D6CADFF006AC0BF /* AppDelegate.swift */; };
-		BFB7DC871D6CAF9A006AC0BF /* ViewpointController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB7DC861D6CAF9A006AC0BF /* ViewpointController.swift */; };
-		BFB7DC891D6CB544006AC0BF /* MeshViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB7DC881D6CB544006AC0BF /* MeshViewController.swift */; settings = {COMPILER_FLAGS = "-lc++"; }; };
-		BFBE04A41D6C76CB0048D363 /* MeshRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBE04A31D6C76CB0048D363 /* MeshRenderer.swift */; };
-		BFEC10DB1D6CC8B500BC2A3F /* ScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEC10D71D6CC8B500BC2A3F /* ScanViewController.swift */; };
-		BFEC10DC1D6CC8B500BC2A3F /* ScanViewController+Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEC10D81D6CC8B500BC2A3F /* ScanViewController+Camera.swift */; };
-		BFEC10DD1D6CC8B500BC2A3F /* ScanViewController+OpenGL.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEC10D91D6CC8B500BC2A3F /* ScanViewController+OpenGL.swift */; };
-		BFEC10DE1D6CC8B500BC2A3F /* ScanViewController+SLAM.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEC10DA1D6CC8B500BC2A3F /* ScanViewController+SLAM.swift */; };
 		BFEC10E01D6CCA4700BC2A3F /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BFEC10DF1D6CCA4700BC2A3F /* libc++.tbd */; };
-		BFFCD7581D74334700BE291B /* Scan+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFFCD7571D74334700BE291B /* Scan+Util.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -54,15 +54,23 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		45A970FE1E551309000B9936 /* Scanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scanner.swift; sourceTree = "<group>"; };
+		45A9713B1E55168D000B9936 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Scanner.storyboard; sourceTree = "<group>"; };
+		45A9713C1E55168D000B9936 /* CustomShaders.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomShaders.swift; sourceTree = "<group>"; };
+		45A9713D1E55168D000B9936 /* EAGLView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EAGLView.swift; sourceTree = "<group>"; };
+		45A9713E1E55168D000B9936 /* MeshRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshRenderer.swift; sourceTree = "<group>"; };
+		45A9713F1E55168D000B9936 /* MeshViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshViewController.swift; sourceTree = "<group>"; };
+		45A971401E55168D000B9936 /* Scan+Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Scan+Util.swift"; sourceTree = "<group>"; };
+		45A971411E55168D000B9936 /* Scanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scanner.swift; sourceTree = "<group>"; };
+		45A971421E55168D000B9936 /* ScanViewController+Camera.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ScanViewController+Camera.swift"; sourceTree = "<group>"; };
+		45A971431E55168D000B9936 /* ScanViewController+OpenGL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ScanViewController+OpenGL.swift"; sourceTree = "<group>"; };
+		45A971441E55168D000B9936 /* ScanViewController+SLAM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ScanViewController+SLAM.swift"; sourceTree = "<group>"; };
+		45A971451E55168D000B9936 /* ScanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanViewController.swift; sourceTree = "<group>"; };
+		45A971461E55168D000B9936 /* ViewpointController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewpointController.swift; sourceTree = "<group>"; };
+		45A971531E551698000B9936 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		45E5FB5F1E4A615A000E5F6A /* Structure.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Structure.framework; sourceTree = "<group>"; };
 		BF469BA91D6C702200EAD58F /* Scanner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Scanner-Bridging-Header.h"; sourceTree = "<group>"; };
-		BF469BAC1D6C702300EAD58F /* CustomShaders.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomShaders.swift; sourceTree = "<group>"; };
-		BF4C49B81D6C91C1000A84DD /* EAGLView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EAGLView.swift; sourceTree = "<group>"; };
-		BF642AA51D7374F50055CBE3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BF94651F1D6C539200E1FD98 /* Scanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Scanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF94652E1D6C539300E1FD98 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		BF9465311D6C539300E1FD98 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BF9465331D6C539300E1FD98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BF9465831D6C562E00E1FD98 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		BF9465851D6C562E00E1FD98 /* Scanner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Scanner.entitlements; sourceTree = "<group>"; };
@@ -80,15 +88,7 @@
 		BF94659B1D6C592E00E1FD98 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		BF94659C1D6C592E00E1FD98 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		BFB7DC841D6CADFF006AC0BF /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		BFB7DC861D6CAF9A006AC0BF /* ViewpointController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewpointController.swift; sourceTree = "<group>"; };
-		BFB7DC881D6CB544006AC0BF /* MeshViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshViewController.swift; sourceTree = "<group>"; };
-		BFBE04A31D6C76CB0048D363 /* MeshRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshRenderer.swift; sourceTree = "<group>"; };
-		BFEC10D71D6CC8B500BC2A3F /* ScanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanViewController.swift; sourceTree = "<group>"; };
-		BFEC10D81D6CC8B500BC2A3F /* ScanViewController+Camera.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ScanViewController+Camera.swift"; sourceTree = "<group>"; };
-		BFEC10D91D6CC8B500BC2A3F /* ScanViewController+OpenGL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ScanViewController+OpenGL.swift"; sourceTree = "<group>"; };
-		BFEC10DA1D6CC8B500BC2A3F /* ScanViewController+SLAM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ScanViewController+SLAM.swift"; sourceTree = "<group>"; };
 		BFEC10DF1D6CCA4700BC2A3F /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
-		BFFCD7571D74334700BE291B /* Scan+Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Scan+Util.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,39 +118,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		450402BE1E4E5C7700D74B18 /* Scanner */ = {
+		45A971391E55168D000B9936 /* Scanner */ = {
 			isa = PBXGroup;
 			children = (
-				BF469BAC1D6C702300EAD58F /* CustomShaders.swift */,
-				BF4C49B81D6C91C1000A84DD /* EAGLView.swift */,
-				BFBE04A31D6C76CB0048D363 /* MeshRenderer.swift */,
-				BFB7DC861D6CAF9A006AC0BF /* ViewpointController.swift */,
-				45A970FE1E551309000B9936 /* Scanner.swift */,
-				45A970FC1E550C5D000B9936 /* View Controllers */,
-				BFFCD7571D74334700BE291B /* Scan+Util.swift */,
+				45A9713A1E55168D000B9936 /* Scanner.storyboard */,
+				45A9713C1E55168D000B9936 /* CustomShaders.swift */,
+				45A9713D1E55168D000B9936 /* EAGLView.swift */,
+				45A9713E1E55168D000B9936 /* MeshRenderer.swift */,
+				45A9713F1E55168D000B9936 /* MeshViewController.swift */,
+				45A971401E55168D000B9936 /* Scan+Util.swift */,
+				45A971411E55168D000B9936 /* Scanner.swift */,
+				45A971421E55168D000B9936 /* ScanViewController+Camera.swift */,
+				45A971431E55168D000B9936 /* ScanViewController+OpenGL.swift */,
+				45A971441E55168D000B9936 /* ScanViewController+SLAM.swift */,
+				45A971451E55168D000B9936 /* ScanViewController.swift */,
+				45A971461E55168D000B9936 /* ViewpointController.swift */,
 			);
-			name = Scanner;
-			sourceTree = "<group>";
-		};
-		45A970FC1E550C5D000B9936 /* View Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				BFEC10D71D6CC8B500BC2A3F /* ScanViewController.swift */,
-				BFEC10D81D6CC8B500BC2A3F /* ScanViewController+Camera.swift */,
-				BFEC10D91D6CC8B500BC2A3F /* ScanViewController+OpenGL.swift */,
-				BFEC10DA1D6CC8B500BC2A3F /* ScanViewController+SLAM.swift */,
-				BFB7DC881D6CB544006AC0BF /* MeshViewController.swift */,
-			);
-			name = "View Controllers";
-			sourceTree = "<group>";
-		};
-		45A970FD1E55105F000B9936 /* Storyboards */ = {
-			isa = PBXGroup;
-			children = (
-				BF9465301D6C539300E1FD98 /* LaunchScreen.storyboard */,
-				BF642AA41D7374F50055CBE3 /* Main.storyboard */,
-			);
-			name = Storyboards;
+			path = Scanner;
 			sourceTree = "<group>";
 		};
 		BF9465161D6C539200E1FD98 = {
@@ -173,11 +157,8 @@
 		BF9465211D6C539300E1FD98 /* Scanner */ = {
 			isa = PBXGroup;
 			children = (
-				BFB7DC841D6CADFF006AC0BF /* AppDelegate.swift */,
-				450402BE1E4E5C7700D74B18 /* Scanner */,
-				45A970FD1E55105F000B9936 /* Storyboards */,
+				45A971391E55168D000B9936 /* Scanner */,
 				BF9465221D6C539300E1FD98 /* Supporting Files */,
-				BF469BA91D6C702200EAD58F /* Scanner-Bridging-Header.h */,
 			);
 			path = Scanner;
 			sourceTree = "<group>";
@@ -185,9 +166,12 @@
 		BF9465221D6C539300E1FD98 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				BFB7DC841D6CADFF006AC0BF /* AppDelegate.swift */,
+				45A971531E551698000B9936 /* LaunchScreen.storyboard */,
 				BF9465851D6C562E00E1FD98 /* Scanner.entitlements */,
 				BF94652E1D6C539300E1FD98 /* Assets.xcassets */,
 				BF9465331D6C539300E1FD98 /* Info.plist */,
+				BF469BA91D6C702200EAD58F /* Scanner-Bridging-Header.h */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -283,9 +267,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BF642AA61D7374F50055CBE3 /* Main.storyboard in Resources */,
-				BF9465321D6C539300E1FD98 /* LaunchScreen.storyboard in Resources */,
+				45A971541E551698000B9936 /* LaunchScreen.storyboard in Resources */,
 				BF94652F1D6C539300E1FD98 /* Assets.xcassets in Resources */,
+				45A971471E55168D000B9936 /* Scanner.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -296,38 +280,30 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BFEC10DD1D6CC8B500BC2A3F /* ScanViewController+OpenGL.swift in Sources */,
-				BFBE04A41D6C76CB0048D363 /* MeshRenderer.swift in Sources */,
-				BF469BAE1D6C702300EAD58F /* CustomShaders.swift in Sources */,
-				BFEC10DB1D6CC8B500BC2A3F /* ScanViewController.swift in Sources */,
-				BFB7DC871D6CAF9A006AC0BF /* ViewpointController.swift in Sources */,
-				BFEC10DC1D6CC8B500BC2A3F /* ScanViewController+Camera.swift in Sources */,
 				BFB7DC851D6CADFF006AC0BF /* AppDelegate.swift in Sources */,
-				BFB7DC891D6CB544006AC0BF /* MeshViewController.swift in Sources */,
-				BFFCD7581D74334700BE291B /* Scan+Util.swift in Sources */,
-				BF4C49B91D6C91C1000A84DD /* EAGLView.swift in Sources */,
-				45A970FF1E551309000B9936 /* Scanner.swift in Sources */,
-				BFEC10DE1D6CC8B500BC2A3F /* ScanViewController+SLAM.swift in Sources */,
+				45A9714B1E55168D000B9936 /* MeshViewController.swift in Sources */,
+				45A9714F1E55168D000B9936 /* ScanViewController+OpenGL.swift in Sources */,
+				45A971511E55168D000B9936 /* ScanViewController.swift in Sources */,
+				45A9714E1E55168D000B9936 /* ScanViewController+Camera.swift in Sources */,
+				45A9714C1E55168D000B9936 /* Scan+Util.swift in Sources */,
+				45A9714A1E55168D000B9936 /* MeshRenderer.swift in Sources */,
+				45A971501E55168D000B9936 /* ScanViewController+SLAM.swift in Sources */,
+				45A971481E55168D000B9936 /* CustomShaders.swift in Sources */,
+				45A971521E55168D000B9936 /* ViewpointController.swift in Sources */,
+				45A9714D1E55168D000B9936 /* Scanner.swift in Sources */,
+				45A971491E55168D000B9936 /* EAGLView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		BF642AA41D7374F50055CBE3 /* Main.storyboard */ = {
+		45A9713A1E55168D000B9936 /* Scanner.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				BF642AA51D7374F50055CBE3 /* Base */,
+				45A9713B1E55168D000B9936 /* Base */,
 			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		BF9465301D6C539300E1FD98 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				BF9465311D6C539300E1FD98 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
+			name = Scanner.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
