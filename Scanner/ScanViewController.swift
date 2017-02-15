@@ -12,142 +12,11 @@
 import Foundation
 import UIKit
 
-struct DynamicOptions {
-	var newTrackerIsOn = true
-	var newTrackerSwitchEnabled = true
-	var highResColoring = false
-	var highResColoringSwitchEnabled = false
-	var newMapperIsOn = true
-	var newMapperSwitchEnabled = true
-	var highResMapping = true
-	var highResMappingSwitchEnabled = true
+protocol ScanViewControllerDelegate: class {
+    func scanViewControllerDidExport(_ objURL: URL, stlURL: URL, scaledStlURL: URL?)
 }
 
-// Volume resolution in meters
-
-struct Options {
-	// The initial scanning volume size will be 0.5 x 0.5 x 0.5 meters
-	// (X is left-right, Y is up-down, Z is forward-back)
-	var initVolumeSizeInMeters: GLKVector3 = GLKVector3Make(0.5, 0.5, 0.5)
-	// The maximum number of keyframes saved in keyFrameManager
-	var maxNumKeyFrames: Int = 48
-	// Colorizer quality
-	var colorizerQuality: STColorizerQuality = STColorizerQuality.highQuality
-	// Take a new keyframe in the rotation difference is higher than 20 degrees.
-	var maxKeyFrameRotation: CGFloat = CGFloat(20 * (M_PI / 180)) // 20 degrees
-	// Take a new keyframe if the translation difference is higher than 30 cm.
-	var maxKeyFrameTranslation: CGFloat = 0.3 // 30cm
-	// Threshold to consider that the rotation motion was small enough for a frame to be accepted
-	// as a keyframe. This avoids capturing keyframes with strong motion blur / rolling shutter.
-	var maxKeyframeRotationSpeedInDegreesPerSecond: CGFloat = 1
-	// Whether we should use depth aligned to the color viewpoint when Structure Sensor was calibrated.
-	// This setting may get overwritten to false if no color camera can be used.
-	var useHardwareRegisteredDepth: Bool = false
-	// Whether to enable an expensive per-frame depth accuracy refinement.
-	// Note: this option requires useHardwareRegisteredDepth to be set to false.
-	var applyExpensiveCorrectionToDepth: Bool = true
-	// Whether the colorizer should try harder to preserve appearance of the first keyframe.
-	// Recommended for face scans.
-	var prioritizeFirstFrameColor: Bool = true
-	// Target number of faces of the final textured mesh.
-	var colorizerTargetNumFaces: Int = 30000
-	// Focus position for the color camera (between 0 and 1). Must remain fixed one depth streaming
-	// has started when using hardware registered depth.
-	let lensPosition: CGFloat = 0.75
-}
-
-enum ScannerState: Int {
-
-	case cubePlacement = 0	// Defining the volume to scan
-	case scanning			// Scanning
-	case viewing			// Visualizing the mesh
-}
-
-// SLAM-related members.
-struct SlamData {
-
-	var initialized = false
-	var showingMemoryWarning = false
-	var prevFrameTimeStamp: TimeInterval = -1
-	var scene: STScene? = nil
-	var tracker: STTracker? = nil
-	var mapper: STMapper? = nil
-	var cameraPoseInitializer: STCameraPoseInitializer? = nil
-	var initialDepthCameraPose: GLKMatrix4 = GLKMatrix4Identity
-	var keyFrameManager: STKeyFrameManager? = nil
-	var scannerState: ScannerState = .cubePlacement
-	var volumeSizeInMeters = GLKVector3Make(Float.nan, Float.nan, Float.nan)
-}
-
-// Utility struct to manage a gesture-based scale.
-struct PinchScaleState {
-
-	var currentScale: CGFloat = 1
-	var initialPinchScale: CGFloat = 1
-}
-
-func keepInRange(_ value: Float, minValue: Float, maxValue: Float) -> Float {
-	if value.isNaN {
-		return minValue
-	}
-	if value > maxValue {
-		return maxValue
-	}
-	if value < minValue {
-		return minValue
-	}
-	return value
-}
-
-struct AppStatus {
-	let pleaseConnectSensorMessage = "Please connect Structure Sensor."
-	let pleaseChargeSensorMessage = "Please charge Structure Sensor."
-	let needColorCameraAccessMessage = "This app requires camera access to capture color.\nAllow access by going to Settings → Privacy → Camera."
-
-	enum SensorStatus {
-		case ok
-		case needsUserToConnect
-		case needsUserToCharge
-	}
-
-	// Structure Sensor status.
-	var sensorStatus: SensorStatus = .ok
-	// Whether iOS camera access was granted by the user.
-	var colorCameraIsAuthorized = true
-	// Whether there is currently a message to show.
-	var needsDisplayOfStatusMessage = false
-	// Flag to disable entirely status message display.
-	var statusMessageDisabled = false
-}
-
-// Display related members.
-struct DisplayData {
-
-	// OpenGL context.
-	var context: EAGLContext? = nil
-	// OpenGL Texture reference for y images.
-	var lumaTexture: CVOpenGLESTexture? = nil
-	// OpenGL Texture reference for color images.
-	var chromaTexture: CVOpenGLESTexture? = nil
-	// OpenGL Texture cache for the color camera.
-	var videoTextureCache: CVOpenGLESTextureCache? = nil
-	// Shader to render a GL texture as a simple quad.
-	var yCbCrTextureShader: STGLTextureShaderYCbCr? = nil
-	var rgbaTextureShader: STGLTextureShaderRGBA? = nil
-	var depthAsRgbaTexture: GLuint = 0
-	// Renders the volume boundaries as a cube.
-	var cubeRenderer: STCubeRenderer? = nil
-	// OpenGL viewport.
-	var viewport: [GLfloat] = [0, 0, 0, 0]
-	// OpenGL projection matrix for the color camera.
-	var colorCameraGLProjectionMatrix: GLKMatrix4 = GLKMatrix4Identity
-	// OpenGL projection matrix for the depth camera.
-	var depthCameraGLProjectionMatrix: GLKMatrix4 = GLKMatrix4Identity
-	// Mesh rendering alpha
-	var meshRenderingAlpha: Float = 0.8
-}
-
-class ScanViewController: UIViewController, STBackgroundTaskDelegate, MeshViewDelegate, UIGestureRecognizerDelegate, AVCaptureVideoDataOutputSampleBufferDelegate {
+class ScanViewController: UIViewController, STBackgroundTaskDelegate, UIGestureRecognizerDelegate, AVCaptureVideoDataOutputSampleBufferDelegate {
 	
     @IBOutlet weak var eview: EAGLView!
 
@@ -163,6 +32,8 @@ class ScanViewController: UIViewController, STBackgroundTaskDelegate, MeshViewDe
 	@IBOutlet weak var enableNewTrackerView: UIView!
     @IBOutlet weak var instructionOverlay: UIView!
     @IBOutlet weak var calibrationOverlay: UIView!
+    
+    weak var delegate: ScanViewControllerDelegate?
 
 	// Structure Sensor controller.
 	var _sensorController: STSensorController!
@@ -278,8 +149,40 @@ class ScanViewController: UIViewController, STBackgroundTaskDelegate, MeshViewDe
 
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
-		respondToMemoryWarning()
-	}
+        NSLog("respondToMemoryWarning")
+        switch _slamState.scannerState {
+        case .viewing:
+            // If we are running a colorizing task, abort it
+            if _enhancedColorizeTask != nil && !_slamState.showingMemoryWarning {
+                _slamState.showingMemoryWarning = true
+                // stop the task
+                _enhancedColorizeTask!.cancel()
+                _enhancedColorizeTask = nil
+                // hide progress bar
+                self.meshViewController.hideMeshViewerMessage()
+                let alertCtrl = UIAlertController(title: "Memory Low", message: "Colorizing was canceled.", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "OK", style: .default, handler: { _ in
+                    self._slamState.showingMemoryWarning = false
+                })
+                alertCtrl.addAction(okAction)
+                // show the alert in the meshViewController
+                self.meshViewController.present(alertCtrl, animated: true, completion: nil)
+            }
+        case .scanning:
+            if !_slamState.showingMemoryWarning {
+                _slamState.showingMemoryWarning = true
+                let alertCtrl = UIAlertController(title: "Memory Low", message: "Scanning will be stopped to avoid loss.", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "OK", style: .default, handler: { _ in
+                    self._slamState.showingMemoryWarning = false
+                    self.enterViewingState()
+                })
+                alertCtrl.addAction(okAction)
+                present(alertCtrl, animated: true, completion: nil)
+            }
+        default:
+            break
+        }
+    }
 
 	func initializeDynamicOptions() {
 		_dynamicOptions = DynamicOptions()
@@ -664,10 +567,18 @@ class ScanViewController: UIViewController, STBackgroundTaskDelegate, MeshViewDe
             })
         }
     }
+    
+}
 
-	//MARK: - MeshViewController delegates
+extension ScanViewController: MeshViewControllerDelegate {
 
-	func meshViewWillDismiss() {
+    func meshViewControllerDidExport(_ objURL: URL, stlURL: URL, scaledStlURL: URL?) {
+        let string = "export \(objURL) \(stlURL) \(scaledStlURL)"
+        NSLog(string)
+        delegate?.scanViewControllerDidExport(objURL, stlURL: stlURL, scaledStlURL: scaledStlURL)
+    }
+    
+	func meshViewControllerWillDismiss() {
 		// If we are running colorize work, we should cancel it.
 		if _naiveColorizeTask != nil {
 			_naiveColorizeTask!.cancel()
@@ -684,7 +595,7 @@ class ScanViewController: UIViewController, STBackgroundTaskDelegate, MeshViewDe
 		self.meshViewController.hideMeshViewerMessage()
 	}
 
-	func meshViewDidDismiss() {
+	func meshViewControllerDidDismiss() {
 		_appStatus.statusMessageDisabled = false
 		updateAppStatusMessage()
 		let _ = connectToStructureSensorAndStartStreaming()
@@ -707,12 +618,11 @@ class ScanViewController: UIViewController, STBackgroundTaskDelegate, MeshViewDe
 		}
 	}
 	
-	func meshViewDidRequestColorizing(_ mesh: STMesh, previewCompletionHandler: @escaping () -> Void, enhancedCompletionHandler: @escaping () -> Void) -> Bool {
+	func meshViewControllerDidRequestColorizing(_ mesh: STMesh, previewCompletionHandler: @escaping () -> Void, enhancedCompletionHandler: @escaping () -> Void) -> Bool {
 		if _holeFillingTask != nil || _naiveColorizeTask != nil || _enhancedColorizeTask != nil { // already one running?
 			NSLog("Already running background task!")
 			return false
 		}
-
 		_naiveColorizeTask = try! STColorizer.newColorizeTask(with: mesh,
 		                   scene: _slamState.scene,
 		                   keyframes: _slamState.keyFrameManager!.getKeyFrames(),
@@ -737,13 +647,10 @@ class ScanViewController: UIViewController, STBackgroundTaskDelegate, MeshViewDe
 			// Release the tracking and mapping resources. It will not be possible to resume a scan after this point
 //			_slamState.mapper!.reset()
 //			_slamState.tracker!.reset()
-
 			_naiveColorizeTask!.delegate = self
 			_naiveColorizeTask!.start()
-
 			return true
 		}
-
 		return false
 	}
 
@@ -754,10 +661,8 @@ class ScanViewController: UIViewController, STBackgroundTaskDelegate, MeshViewDe
             } else {
                 DispatchQueue.main.async(execute: {
                     enhancedCompletionHandler()
-
 					self.meshViewController.mesh = mesh
                 })
-
                 self._enhancedColorizeTask = nil
             }
             }, options: [kSTColorizerTypeKey : STColorizerType.textureMapForObject.rawValue, kSTColorizerPrioritizeFirstFrameColorKey: _options.prioritizeFirstFrameColor, kSTColorizerQualityKey: _options.colorizerQuality.rawValue, kSTColorizerTargetNumberOfFacesKey: _options.colorizerTargetNumFaces])
@@ -771,9 +676,8 @@ class ScanViewController: UIViewController, STBackgroundTaskDelegate, MeshViewDe
 		}
 	}
 
-	func meshViewDidRequestHoleFilling(_ mesh: STMesh, previewCompletionHandler: @escaping () -> Void, enhancedCompletionHandler: @escaping () -> Void) -> Bool {
+	func meshViewControllerDidRequestHoleFilling(_ mesh: STMesh, previewCompletionHandler: @escaping () -> Void, enhancedCompletionHandler: @escaping () -> Void) -> Bool {
 		if _holeFillingTask != nil || _naiveColorizeTask != nil || _enhancedColorizeTask != nil { // already one running?
-			
 			NSLog("Already running background task!")
 			return false
 		}
@@ -787,7 +691,7 @@ class ScanViewController: UIViewController, STBackgroundTaskDelegate, MeshViewDe
 									let meshIsColorized: Bool = result!.hasPerVertexColors() || result!.hasPerVertexUVTextureCoords()
 									if !meshIsColorized {
 										// colorize the mesh
-										let _ = self.meshViewDidRequestColorizing(result!, previewCompletionHandler: previewCompletionHandler, enhancedCompletionHandler:enhancedCompletionHandler)
+										let _ = self.meshViewControllerDidRequestColorizing(result!, previewCompletionHandler: previewCompletionHandler, enhancedCompletionHandler:enhancedCompletionHandler)
 									}
 									else {
 										self.meshViewController.holeFilledMesh = result!
@@ -799,52 +703,12 @@ class ScanViewController: UIViewController, STBackgroundTaskDelegate, MeshViewDe
 						}
 				self._holeFillingTask = nil
 			})
-		
 		if _holeFillingTask != nil {
-			
 			_holeFillingTask!.delegate = self
 			_holeFillingTask!.start()
-			
 			return true
 		}
-		
 		return false
-	}
-	
-	func respondToMemoryWarning() {
-		NSLog("respondToMemoryWarning")
-		switch _slamState.scannerState {
-		case .viewing:
-			// If we are running a colorizing task, abort it
-			if _enhancedColorizeTask != nil && !_slamState.showingMemoryWarning {
-				_slamState.showingMemoryWarning = true
-				// stop the task
-				_enhancedColorizeTask!.cancel()
-				_enhancedColorizeTask = nil
-				// hide progress bar
-				self.meshViewController.hideMeshViewerMessage()
-				let alertCtrl = UIAlertController(title: "Memory Low", message: "Colorizing was canceled.", preferredStyle: .alert)
-				let okAction = UIAlertAction(title: "OK", style: .default, handler: { _ in
-                    self._slamState.showingMemoryWarning = false
-				})
-				alertCtrl.addAction(okAction)
-				// show the alert in the meshViewController
-				self.meshViewController.present(alertCtrl, animated: true, completion: nil)
-			}
-		case .scanning:
-			if !_slamState.showingMemoryWarning {
-				_slamState.showingMemoryWarning = true
-				let alertCtrl = UIAlertController(title: "Memory Low", message: "Scanning will be stopped to avoid loss.", preferredStyle: .alert)
-				let okAction = UIAlertAction(title: "OK", style: .default, handler: { _ in
-                    self._slamState.showingMemoryWarning = false
-                    self.enterViewingState()
-				})
-				alertCtrl.addAction(okAction)
-				present(alertCtrl, animated: true, completion: nil)
-			}
-		default:
-			break
-		}
 	}
 
 }

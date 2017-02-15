@@ -449,13 +449,13 @@ Try to re-align or press reset.</string>
                     </view>
                     <navigationItem key="navigationItem" id="QMm-s1-QPt">
                         <nil key="title"/>
-                        <barButtonItem key="leftBarButtonItem" title="New Scan" id="jV3-2a-YYu">
+                        <barButtonItem key="leftBarButtonItem" title="Start Over" id="jV3-2a-YYu">
                             <connections>
                                 <action selector="dismissView:" destination="AlP-Dd-rCg" id="aBo-8p-U0X"/>
                             </connections>
                         </barButtonItem>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" id="b5C-VH-IBd">
-                            <rect key="frame" x="312" y="7.5" width="400" height="29"/>
+                            <rect key="frame" x="312" y="8" width="400" height="29"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
                                 <segment title="X-Ray View"/>
@@ -476,9 +476,9 @@ Try to re-align or press reset.</string>
                                 <action selector="displayControlChanged:" destination="AlP-Dd-rCg" eventType="valueChanged" id="ghd-gU-vAh"/>
                             </connections>
                         </segmentedControl>
-                        <barButtonItem key="rightBarButtonItem" title="Email" id="CSy-5W-0FU">
+                        <barButtonItem key="rightBarButtonItem" title="Done" id="CSy-5W-0FU">
                             <connections>
-                                <action selector="emailMesh:" destination="AlP-Dd-rCg" id="5X5-P4-DkY"/>
+                                <action selector="exportMesh:" destination="AlP-Dd-rCg" id="QgH-C8-7ve"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

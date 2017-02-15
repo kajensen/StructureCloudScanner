@@ -12,17 +12,19 @@
 import MessageUI
 import ImageIO
 
-protocol MeshViewDelegate: class {
+protocol MeshViewControllerDelegate: class {
     
-    func meshViewWillDismiss()
-    func meshViewDidDismiss()
-    func meshViewDidRequestColorizing(_ mesh: STMesh,  previewCompletionHandler: @escaping () -> Void, enhancedCompletionHandler: @escaping () -> Void) -> Bool
-    func meshViewDidRequestHoleFilling(_ mesh: STMesh,  previewCompletionHandler: @escaping () -> Void, enhancedCompletionHandler: @escaping () -> Void) -> Bool
+    func meshViewControllerWillDismiss()
+    func meshViewControllerDidDismiss()
+    func meshViewControllerDidRequestColorizing(_ mesh: STMesh,  previewCompletionHandler: @escaping () -> Void, enhancedCompletionHandler: @escaping () -> Void) -> Bool
+    func meshViewControllerDidRequestHoleFilling(_ mesh: STMesh,  previewCompletionHandler: @escaping () -> Void, enhancedCompletionHandler: @escaping () -> Void) -> Bool
+    func meshViewControllerDidExport(_ objURL: URL, stlURL: URL, scaledStlURL: URL?)
+    
 }
 
 open class MeshViewController: UIViewController, UIGestureRecognizerDelegate {
     
-    weak var delegate: MeshViewDelegate?
+    weak var delegate: MeshViewControllerDelegate?
     
     // force the view to redraw.
     var needsDisplay: Bool = false
@@ -150,9 +152,7 @@ open class MeshViewController: UIViewController, UIGestureRecognizerDelegate {
         _holeFilledMesh = nil
         displayControl.selectedSegmentIndex = 1
         renderer.setRenderingMode(.lightedGray)
-        if delegate?.meshViewWillDismiss != nil {
-            delegate?.meshViewWillDismiss()
-        }
+        delegate?.meshViewControllerWillDismiss()
         renderer.releaseGLBuffers()
         renderer.releaseGLTextures()
         displayLink!.invalidate()
@@ -160,9 +160,7 @@ open class MeshViewController: UIViewController, UIGestureRecognizerDelegate {
         mesh = nil
         self.eview.context = nil
         dismiss(animated: true, completion: {
-            if self.delegate?.meshViewDidDismiss != nil {
-                self.delegate?.meshViewDidDismiss()
-            }
+            self.delegate?.meshViewControllerDidDismiss()
         })
     }
     
@@ -209,45 +207,22 @@ open class MeshViewController: UIViewController, UIGestureRecognizerDelegate {
         jpgData = nil
     }
     
-    @IBAction func emailMesh(_ sender: AnyObject) {
-        guard MFMailComposeViewController.canSendMail() else {
-            let alert = UIAlertController.init(title: "The email could not be sent.", message: "Please make sure an email account is properly setup on this device.", preferredStyle: .alert)
-            let defaultAction = UIAlertAction.init(title: "OK", style: .default, handler: nil)
-            alert.addAction(defaultAction)
-            present(alert, animated: true, completion: nil)
-            return
-        }
-        NSLog("-1")
+    @IBAction func exportMesh(_ sender: AnyObject) {
         guard let meshToSend = mesh else {
-            let alert = UIAlertController.init(title: "The email could not be sent", message: "Exporting the mesh failed", preferredStyle: .alert)
+            let alert = UIAlertController.init(title: "Error", message: "Exporting the mesh failed", preferredStyle: .alert)
             let defaultAction = UIAlertAction.init(title: "OK", style: .default, handler: nil)
             alert.addAction(defaultAction)
             present(alert, animated: true, completion: nil)
             return
         }
-        NSLog("0")
         if let objURL = Export.saveOBJ("export.obj", data: meshToSend) {
             Export.saveSTL("export.stl", 1000, objURL: objURL, completion: { (originalURL, scaledURL) in
-                self.emailSTL(stlURL: originalURL, stlScaledURL: scaledURL)
+                self.delegate?.meshViewControllerDidExport(objURL, stlURL: originalURL, scaledStlURL: scaledURL)
+                self.dismissView(sender)
             })
         }
     }
-    
-    func emailSTL(stlURL: URL, stlScaledURL: URL?) {
-        let mailViewController = MFMailComposeViewController()
-        mailViewController.mailComposeDelegate = self
-        mailViewController.setSubject("Scan")
-        let messageBody = "Here's the scan."
-        mailViewController.setMessageBody(messageBody, isHTML: false)
-        if let data = try? Data(contentsOf: stlURL) {
-            mailViewController.addAttachmentData(data, mimeType: "application/sla", fileName: stlURL.lastPathComponent)
-        }
-        if let stlScaledURL = stlScaledURL, let data = try? Data(contentsOf: stlScaledURL) {
-            mailViewController.addAttachmentData(data, mimeType: "application/sla", fileName: stlScaledURL.lastPathComponent)
-        }
-        present(mailViewController, animated: true, completion: nil)
-    }
-    
+
     //MARK: Rendering
     
     func draw () {
@@ -381,7 +356,7 @@ open class MeshViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     func colorizeMesh() {
-        let _ = delegate?.meshViewDidRequestColorizing(self.mesh!, previewCompletionHandler: {
+        let _ = delegate?.meshViewControllerDidRequestColorizing(self.mesh!, previewCompletionHandler: {
         }, enhancedCompletionHandler: {
                 // Hide progress bar.
             self.hideMeshViewerMessage()
@@ -389,7 +364,7 @@ open class MeshViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     func fillMesh() {
-        let _ = delegate?.meshViewDidRequestHoleFilling(self.mesh!, previewCompletionHandler: {
+        let _ = delegate?.meshViewControllerDidRequestHoleFilling(self.mesh!, previewCompletionHandler: {
         }, enhancedCompletionHandler: {
             // Hide progress bar.
             self.hideMeshViewerMessage()
@@ -415,10 +390,3 @@ open class MeshViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
 }
-
-extension MeshViewController: MFMailComposeViewControllerDelegate {
-    public func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
-        controller.dismiss(animated: true, completion: nil)
-    }
-}
-

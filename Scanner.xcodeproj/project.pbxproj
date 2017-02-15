@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		45A970FF1E551309000B9936 /* Scanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A970FE1E551309000B9936 /* Scanner.swift */; };
 		45E5FB601E4A615A000E5F6A /* Structure.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45E5FB5F1E4A615A000E5F6A /* Structure.framework */; };
 		BF469BAE1D6C702300EAD58F /* CustomShaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF469BAC1D6C702300EAD58F /* CustomShaders.swift */; };
 		BF4C49B91D6C91C1000A84DD /* EAGLView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4C49B81D6C91C1000A84DD /* EAGLView.swift */; };
@@ -53,6 +54,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		45A970FE1E551309000B9936 /* Scanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scanner.swift; sourceTree = "<group>"; };
 		45E5FB5F1E4A615A000E5F6A /* Structure.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Structure.framework; sourceTree = "<group>"; };
 		BF469BA91D6C702200EAD58F /* Scanner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Scanner-Bridging-Header.h"; sourceTree = "<group>"; };
 		BF469BAC1D6C702300EAD58F /* CustomShaders.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomShaders.swift; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 				BF4C49B81D6C91C1000A84DD /* EAGLView.swift */,
 				BFBE04A31D6C76CB0048D363 /* MeshRenderer.swift */,
 				BFB7DC861D6CAF9A006AC0BF /* ViewpointController.swift */,
+				45A970FE1E551309000B9936 /* Scanner.swift */,
 				45A970FC1E550C5D000B9936 /* View Controllers */,
 				BFFCD7571D74334700BE291B /* Scan+Util.swift */,
 			);
@@ -303,6 +306,7 @@
 				BFB7DC891D6CB544006AC0BF /* MeshViewController.swift in Sources */,
 				BFFCD7581D74334700BE291B /* Scan+Util.swift in Sources */,
 				BF4C49B91D6C91C1000A84DD /* EAGLView.swift in Sources */,
+				45A970FF1E551309000B9936 /* Scanner.swift in Sources */,
 				BFEC10DE1D6CC8B500BC2A3F /* ScanViewController+SLAM.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
